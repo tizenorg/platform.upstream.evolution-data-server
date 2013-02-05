@@ -8,10 +8,9 @@
 %define so_ecal 15
 %define so_edata_cal 20
 %define so_edata_book 16
-%define so_ebook 17
+%define so_ebook 14
 %define so_camel 43
 %define so_ebackend 6
-%define so_edataserverui 5
 %define _evo_version 3.8
 
 
@@ -107,22 +106,6 @@ and calendar in the GNOME Desktop.
 
 This package contains a shared system library to access calendars.
 
-%if %{?with_introspection}
-
-
-%package -n typelib-ECalendar
-Summary:        Evolution Data Server - Calendar Client Library, Introspection bindings
-Group:          System/Libraries
-
-%description -n typelib-ECalendar
-Evolution Data Server provides a central location for your address book
-and calendar in the GNOME Desktop.
-
-This package provides the GObject Introspection bindings for the library
-to access calendars.
-%endif
-
-
 %package -n libedata-book
 Summary:        Evolution Data Server - Address Book Backend Library
 Group:          System/Libraries
@@ -172,7 +155,6 @@ This package contains a shared system library.
 
 %if %{?with_introspection}
 
-
 %package -n typelib-EDataServer
 Summary:        Evolution Data Server - Utilities Library, Introspection bindings
 Group:          System/Libraries
@@ -184,15 +166,6 @@ and calendar in the GNOME Desktop.
 This package provides the GObject Introspection bindings for the
 libedataserver library.
 %endif
-
-
-%package -n libedataserverui
-Summary:        Evolution Data Server - Graphical Utilities Library
-Group:          System/Libraries
-
-%description -n libedataserverui
-Evolution Data Server provides a central location for your address book
-and calendar in the GNOME Desktop.
 
 This package contains a shared system library.
 
@@ -208,10 +181,8 @@ Requires:       libecal = %{version}
 Requires:       libedata-book = %{version}
 Requires:       libedata-cal = %{version}
 Requires:       libedataserver = %{version}
-Requires:       libedataserverui = %{version}
 %if %{?with_introspection}
 Requires:       typelib-EBook = %{version}
-Requires:       typelib-ECalendar = %{version}
 Requires:       typelib-EDataServer = %{version}
 %endif
 
@@ -297,9 +268,6 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 
 %postun -n libedataserver -p /sbin/ldconfig
 
-%post -n libedataserverui -p /sbin/ldconfig
-
-%postun -n libedataserverui -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root)
@@ -339,14 +307,6 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %defattr(-, root, root)
 %{_libdir}/libecal-1.2.so.%{so_ecal}*
 
-%if %{?with_introspection}
-
-%files -n typelib-ECalendar
-%defattr(-, root, root)
-%{_libdir}/girepository-1.0/ECalendar-1.2.typelib
-%endif
-
-
 %files -n libedata-book
 %defattr(-, root, root)
 %{_libdir}/libedata-book-1.2.so.%{so_edata_book}*
@@ -376,11 +336,6 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %defattr(-, root, root)
 %{_libdir}/girepository-1.0/EDataServer-1.2.typelib
 %endif
-
-
-%files -n libedataserverui
-%defattr(-, root, root)
-%{_libdir}/libedataserverui-3.0.so.%{so_edataserverui}*
 
 
 %files devel
