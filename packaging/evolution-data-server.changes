@@ -1,3 +1,6 @@
+* Tue Feb 05 2013 Philippe Coval <philippe.coval@eurogiciel.fr> EVOLUTION_DATA_SERVER_3_7_4@17ab23d
+- Initial packaging on 3.7.4 (using previous ones)
+
 * Thu Dec 20 2012 Jean-Benoit MARTIN <jean-benoit.martin@eurogiciel.fr> submit/devel/20121220.134829@17e3287
 - remove %glib2_gsettings_schema_requires macros
 
