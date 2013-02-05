@@ -1,0 +1,6 @@
+* Thu Dec 20 2012 Jean-Benoit MARTIN <jean-benoit.martin@eurogiciel.fr> submit/devel/20121220.134829@17e3287
+- remove %glib2_gsettings_schema_requires macros
+
+* Thu Dec 20 2012 Jean-Benoit MARTIN <jean-benoit.martin@eurogiciel.fr> EVOLUTION_DATA_SERVER_3_7_2_1@ea8bc94
+- Bump to 3.7.2.1
+
