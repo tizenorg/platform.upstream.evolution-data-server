@@ -15,7 +15,7 @@
 
 
 Name:           evolution-data-server
-Version:        3.7.4
+Version:        3.7.5
 Release:        0
 Summary:        Evolution Data Server
 License:        LGPLv2
@@ -53,7 +53,6 @@ Recommends:     %{name}-lang = %{version}
 %ifarch  %ix86
 Obsoletes:      evolution-data-server-32bit
 %endif
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Requires(post): glib2-tools
 Requires(postun): glib2-tools
 
@@ -153,6 +152,7 @@ and calendar in the GNOME Desktop.
 
 This package contains a shared system library.
 
+
 %if %{?with_introspection}
 
 %package -n typelib-EDataServer
@@ -191,6 +191,7 @@ The Evolution Data Server development files provide the necessary
 libraries, headers, and other files for developing applications which
 use the Evolution Data Server for storing contact and calendar
 information.
+
 
 %package doc
 Summary:        Evolution Data Server - Developer Documentation
