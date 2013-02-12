@@ -18,8 +18,8 @@ Name:           evolution-data-server
 Version:        3.7.5
 Release:        0
 Summary:        Evolution Data Server
-License:        LGPLv2
-Group:          Development/Libraries/GNOME
+License:        LGPL-2.0+
+Group:          Development/Libraries
 Url:            http://www.gnome.org
 Source0:        http://download.gnome.org/sources/evolution-data-server/%{baseline}/%{name}-%{version}.tar.xz
 Source98:       baselibs.conf
@@ -32,8 +32,6 @@ BuildRequires:  glibc-locale
 BuildRequires:  gnome-common
 BuildRequires:  gperf
 BuildRequires:  intltool
-BuildRequires:  libidl-devel
-BuildRequires:  python-devel
 BuildRequires:  vala
 BuildRequires:  pkgconfig(gcr-base-3) >= 3.4
 BuildRequires:  pkgconfig(gnome-keyring-1)
@@ -43,10 +41,12 @@ BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gweather-3.0)
 BuildRequires:  pkgconfig(libgdata)
 BuildRequires:  pkgconfig(libical) >= 0.43
+BuildRequires:  pkgconfig(libIDL-2.0)
 BuildRequires:  pkgconfig(libsecret-unstable)
 BuildRequires:  pkgconfig(libsoup-2.4)
 BuildRequires:  pkgconfig(nss)
 BuildRequires:  pkgconfig(oauth)
+BuildRequires:  pkgconfig(python-2.7)
 BuildRequires:  pkgconfig(sqlite3)
 
 Recommends:     %{name}-lang = %{version}
@@ -173,7 +173,7 @@ This package contains a shared system library.
 
 %package devel
 Summary:        Evolution Data Server - Development Files
-Group:          Development/Libraries/GNOME
+Group:          Development/Libraries
 Requires:       evolution-data-server = %{?epoch:}%{version}
 Requires:       libcamel = %{version}
 Requires:       libebackend = %{version}
@@ -186,6 +186,8 @@ Requires:       libedataserver = %{version}
 Requires:       typelib-EBook = %{version}
 Requires:       typelib-EDataServer = %{version}
 %endif
+Requires(post):   /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 
 %description devel
 The Evolution Data Server development files provide the necessary
@@ -196,7 +198,7 @@ information.
 
 %package doc
 Summary:        Evolution Data Server - Developer Documentation
-Group:          Development/Libraries/GNOME
+Group:          Development/Libraries
 Requires:       %{name} = %{version}
 
 %description doc
@@ -209,9 +211,7 @@ This package contains developer documentation.
 %setup -q
 
 %build
-%autogen
-
-%{configure} \
+%autogen \
  --libexecdir=%{_libexecdir}/evolution-data-server \
  --enable-ipv6=yes \
  --enable-smime=yes \
@@ -275,7 +275,6 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %files
 %defattr(-,root,root)
 %license COPYING
-%{_datadir}/evolution-data-server/
 %{_datadir}/GConf/gsettings/evolution-data-server.convert
 %{_datadir}/GConf/gsettings/libedataserver.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.Evolution.DefaultSources.gschema.xml
