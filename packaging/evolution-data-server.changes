@@ -1,3 +1,6 @@
+* Tue Feb 12 2013 Jean-Benoit MARTIN <jean-benoit.martin@eurogiciel.fr> EVOLUTION_DATA_SERVER_3_7_5@5f1cbd5
+- Bump to 3.7.5
+
 * Tue Feb 05 2013 Philippe Coval <philippe.coval@eurogiciel.fr> EVOLUTION_DATA_SERVER_3_7_4@17ab23d
 - Initial packaging on 3.7.4 (using previous ones)
 
