@@ -105,6 +105,7 @@ and calendar in the GNOME Desktop.
 
 This package contains a shared system library to access calendars.
 
+
 %package -n libedata-book
 Summary:        Evolution Data Server - Address Book Backend Library
 Group:          System/Libraries
@@ -216,6 +217,7 @@ This package contains developer documentation.
  --enable-smime=yes \
  --enable-nntp=yes \
  --disable-static \
+ --disable-uoa \
 %if %{?with_introspection}
  --enable-vala-bindings \
  --enable-introspection \
