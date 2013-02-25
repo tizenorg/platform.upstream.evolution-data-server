@@ -15,7 +15,7 @@
 
 
 Name:           evolution-data-server
-Version:        3.7.5
+Version:        3.7.90
 Release:        0
 Summary:        Evolution Data Server
 License:        LGPL-2.0+
@@ -34,7 +34,6 @@ BuildRequires:  gperf
 BuildRequires:  intltool
 BuildRequires:  vala
 BuildRequires:  pkgconfig(gcr-base-3) >= 3.4
-BuildRequires:  pkgconfig(gnome-keyring-1)
 BuildRequires:  pkgconfig(goa-1.0) >= 3.2
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
@@ -130,7 +129,6 @@ and calendar in the GNOME Desktop.
 This package provides the GObject Introspection bindings for the library
 for address book backends.
 %endif
-
 
 %package -n libedata-cal
 Summary:        Evolution Data Server - Calendar Backend Library
