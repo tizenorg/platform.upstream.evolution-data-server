@@ -1,3 +1,6 @@
+* Wed Feb 27 2013 Corentin Lecouvey <corentin.lecouvey@eurogiciel.fr> EVOLUTION_DATA_SERVER_3_7_90@663ab79
+- Bump to 3.7.90
+
 * Wed Feb 13 2013 Philippe Coval <philippe.coval@eurogiciel.fr> submit/trunk/20130212.174106@de5f295
 - migrate to devel while it breaks folks
 
