@@ -15,7 +15,7 @@
 
 
 Name:           evolution-data-server
-Version:        3.7.90
+Version:        3.7.91
 Release:        0
 Summary:        Evolution Data Server
 License:        LGPL-2.0+
@@ -25,12 +25,12 @@ Source0:        http://download.gnome.org/sources/evolution-data-server/%{baseli
 Source98:       baselibs.conf
 BuildRequires:  db4-devel
 BuildRequires:  fdupes
-BuildRequires:  gtk-doc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext-tools
 BuildRequires:  glibc-locale
 BuildRequires:  gnome-common
 BuildRequires:  gperf
+BuildRequires:  gtk-doc
 BuildRequires:  intltool
 BuildRequires:  vala
 BuildRequires:  pkgconfig(gcr-base-3) >= 3.4
@@ -38,9 +38,9 @@ BuildRequires:  pkgconfig(goa-1.0) >= 3.2
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gweather-3.0) >= 3.5.0
+BuildRequires:  pkgconfig(libIDL-2.0)
 BuildRequires:  pkgconfig(libgdata) >= 0.10
 BuildRequires:  pkgconfig(libical) >= 0.43
-BuildRequires:  pkgconfig(libIDL-2.0)
 BuildRequires:  pkgconfig(libsecret-unstable) >= 0.5
 BuildRequires:  pkgconfig(libsoup-2.4) >= 2.40.3
 BuildRequires:  pkgconfig(nss)
@@ -59,6 +59,7 @@ Requires(postun): glib2-tools
 Evolution Data Server provides a central location for your address book
 and calendar in the GNOME Desktop.
 
+
 %package -n libcamel
 Summary:        Evolution Data Server - Messaging Library
 Group:          System/Libraries
@@ -68,6 +69,7 @@ Evolution Data Server provides a central location for your address book
 and calendar in the GNOME Desktop.
 
 This package contains a shared system library for messaging.
+
 
 %package -n libebackend
 Summary:        Evolution Data Server - Backend Utilities Library
@@ -79,6 +81,7 @@ and calendar in the GNOME Desktop.
 
 This package contains a shared system library for backends.
 
+
 %package -n libebook
 Summary:        Evolution Data Server - Address Book Client Library
 Group:          System/Libraries
@@ -89,6 +92,7 @@ and calendar in the GNOME Desktop.
 
 This package contains a shared system library to access address books.
 
+
 %package -n libebook-contacts
 Summary:        Evolution Data Server - Address Book Client Library
 Group:          System/Libraries
@@ -98,6 +102,7 @@ Evolution Data Server provides a central location for your address book
 and calendar in the GNOME Desktop.
 
 This package contains a shared system library to access address books.
+
 
 %if %{?with_introspection}
 
@@ -112,6 +117,7 @@ and calendar in the GNOME Desktop.
 This package provides the GObject Introspection bindings for the library
 for address book contacts.
 %endif
+
 
 %package -n libecal
 Summary:        Evolution Data Server - Calendar Client Library
@@ -133,6 +139,7 @@ and calendar in the GNOME Desktop.
 
 This package contains a shared system library for address book backends.
 
+
 %if %{?with_introspection}
 
 %package -n typelib-EBook
@@ -146,6 +153,7 @@ and calendar in the GNOME Desktop.
 This package provides the GObject Introspection bindings for the library
 for address book backends.
 %endif
+
 
 %package -n libedata-cal
 Summary:        Evolution Data Server - Calendar Backend Library
@@ -183,6 +191,7 @@ This package provides the GObject Introspection bindings for the
 libedataserver library.
 
 %endif
+
 
 %package devel
 Summary:        Evolution Data Server - Development Files
@@ -224,6 +233,7 @@ This package contains developer documentation.
 %setup -q
 
 %build
+
 %autogen \
  --libexecdir=%{_libexecdir}/evolution-data-server \
  --enable-ipv6=yes \
@@ -306,17 +316,21 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %{_libexecdir}/evolution-data-server/
 %endif
 
+
 %files -n libcamel
 %defattr(-, root, root)
 %{_libdir}/libcamel-1.2.so.%{so_camel}*
+
 
 %files -n libebackend
 %defattr(-, root, root)
 %{_libdir}/libebackend-1.2.so.%{so_ebackend}*
 
+
 %files -n libebook
 %defattr(-, root, root)
 %{_libdir}/libebook-1.2.so.%{so_ebook}*
+
 
 %if %{?with_introspection}
 %files -n typelib-EBook
@@ -324,9 +338,11 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %{_libdir}/girepository-1.0/EBook-1.2.typelib
 %endif
 
+
 %files -n libebook-contacts
 %defattr(-, root, root)
 %{_libdir}/libebook-contacts-1.2.so.0*
+
 
 %if %{?with_introspection}
 %files -n typelib-EBookContacts
@@ -334,27 +350,33 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %{_libdir}/girepository-1.0/EBookContacts-1.2.typelib
 %endif
 
+
 %files -n libecal
 %defattr(-, root, root)
 %{_libdir}/libecal-1.2.so.%{so_ecal}*
+
 
 %files -n libedata-book
 %defattr(-, root, root)
 %{_libdir}/libedata-book-1.2.so.%{so_edata_book}*
 
+
 %files -n libedata-cal
 %defattr(-, root, root)
 %{_libdir}/libedata-cal-1.2.so.%{so_edata_cal}*
 
+
 %files -n libedataserver
 %defattr(-, root, root)
 %{_libdir}/libedataserver-1.2.so.%{so_edataserver}*
+
 
 %if %{?with_introspection}
 %files -n typelib-EDataServer
 %defattr(-, root, root)
 %{_libdir}/girepository-1.0/EDataServer-1.2.typelib
 %endif
+
 
 %files devel
 %defattr(-, root, root)
@@ -368,4 +390,3 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %{_datadir}/vala/vapi/*.deps
 %{_datadir}/vala/vapi/*.vapi
 %endif
-
