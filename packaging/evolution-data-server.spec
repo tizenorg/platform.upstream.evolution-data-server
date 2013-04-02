@@ -1,4 +1,4 @@
-%define baseline 3.7
+%define baseline 3.8
 
 %define USE_EVOLDAP 0
 %define with_introspection 1
