@@ -2,6 +2,12 @@
 
 %define USE_EVOLDAP 0
 %define with_introspection 1
+%define enable_goa no
+%define enable_uoa no
+%define enable_gtk no
+%define enable_gdata no
+%define enable_weather no
+%define enable_email no
 
 # should match configure.ac
 %define so_edataserver 17
@@ -34,17 +40,26 @@ BuildRequires:  gtk-doc
 BuildRequires:  intltool
 BuildRequires:  vala
 BuildRequires:  pkgconfig(gcr-base-3) >= 3.4
+%if %{?enable_goa} != no
 BuildRequires:  pkgconfig(goa-1.0) >= 3.2
+%endif
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
+%if %{?enable_gtk} != no
 BuildRequires:  pkgconfig(gtk+-3.0)
+%endif
+%if %{?enable_weather} != no
 BuildRequires:  pkgconfig(gweather-3.0) >= 3.5.0
-BuildRequires:  pkgconfig(libIDL-2.0)
+%endif
+# Not sure what this is for. Not checked by current configure.ac?
+# BuildRequires:  pkgconfig(libIDL-2.0)
+%if %{?enable_gdata} != no
 BuildRequires:  pkgconfig(libgdata) >= 0.10
+BuildRequires:  pkgconfig(oauth)
+%endif
 BuildRequires:  pkgconfig(libical) >= 0.43
 BuildRequires:  pkgconfig(libsecret-unstable) >= 0.5
 BuildRequires:  pkgconfig(libsoup-2.4) >= 2.40.3
 BuildRequires:  pkgconfig(nss)
-BuildRequires:  pkgconfig(oauth)
 BuildRequires:  pkgconfig(python-2.7)
 BuildRequires:  pkgconfig(sqlite3) >= 3.5
 
@@ -234,13 +249,21 @@ This package contains developer documentation.
 
 %build
 
+# "maintainer mode" depends on GTK and is not needed
+# for packaging, so disable it.
+
 %autogen \
  --libexecdir=%{_libexecdir}/evolution-data-server \
- --enable-ipv6=yes \
- --enable-smime=yes \
- --enable-nntp=yes \
+ --disable-maintainer-mode \
+ --enable-ipv6=%{?enable_ipv6} \
+ --enable-smime=%{?enable_smime} \
+ --enable-nntp=%{?enable_nntp} \
  --disable-static \
  --disable-uoa \
+ --enable-goa=%{?enable_goa} \
+ --enable-weather=%{?enable_weather} \
+ --enable-gtk=%{?enable_gtk} \
+ --enable-google=%{?enable_gdata} \
 %if %{?with_introspection}
  --enable-vala-bindings \
  --enable-introspection \
@@ -254,6 +277,7 @@ make %{?_smp_mflags} V=1
 
 %install
 %make_install
+mkdir -p %{buildroot}/%{_datadir}/help
 %find_lang evolution-data-server-%{_evo_version}
 mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %fdupes %{buildroot}
