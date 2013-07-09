@@ -1,4 +1,4 @@
-%define baseline 3.8
+%define baseline 3.11
 
 %define USE_EVOLDAP 0
 %define with_introspection 1
@@ -17,11 +17,11 @@
 %define so_ebook 14
 %define so_camel 43
 %define so_ebackend 6
-%define _evo_version 3.8
+%define _evo_version 3.11
 
 
 Name:           evolution-data-server
-Version:        3.8.2
+Version:        3.11.93
 Release:        0
 Summary:        Evolution Data Server
 License:        LGPL-2.0+
@@ -39,6 +39,7 @@ BuildRequires:  gperf
 BuildRequires:  gtk-doc
 BuildRequires:  intltool
 BuildRequires:  vala
+BuildRequires:  pkgconfig(icu-i18n)
 BuildRequires:  pkgconfig(gcr-base-3) >= 3.4
 %if %{?enable_goa} != no
 BuildRequires:  pkgconfig(goa-1.0) >= 3.2
@@ -271,6 +272,7 @@ This package contains developer documentation.
  --disable-vala-bindings \
  --disable-introspection \
 %endif
+ --disable-examples \
  # end of configure line
 
 make %{?_smp_mflags} V=1
