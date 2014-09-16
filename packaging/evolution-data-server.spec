@@ -1,4 +1,4 @@
-%define baseline 3.11
+%define baseline 3.12
 
 %define USE_EVOLDAP 0
 %define with_introspection 1
@@ -10,18 +10,18 @@
 %define enable_email no
 
 # should match configure.ac
-%define so_edataserver 17
-%define so_ecal 15
-%define so_edata_cal 20
-%define so_edata_book 17
+%define so_edataserver 18
+%define so_ecal 16
+%define so_edata_cal 23
+%define so_edata_book 20
 %define so_ebook 14
-%define so_camel 43
-%define so_ebackend 6
-%define _evo_version 3.11
+%define so_camel 49
+%define so_ebackend 7
+%define _evo_version 3.12
 
 
 Name:           evolution-data-server
-Version:        3.11.93
+Version:        3.12.2
 Release:        0
 Summary:        Evolution Data Server
 License:        LGPL-2.0+
@@ -59,7 +59,7 @@ BuildRequires:  pkgconfig(oauth)
 %endif
 BuildRequires:  pkgconfig(libical) >= 0.43
 BuildRequires:  pkgconfig(libsecret-unstable) >= 0.5
-BuildRequires:  pkgconfig(libsoup-2.4) >= 2.40.3
+BuildRequires:  pkgconfig(libsoup-2.4) >= 2.42
 BuildRequires:  pkgconfig(nss)
 BuildRequires:  pkgconfig(python-2.7)
 BuildRequires:  pkgconfig(sqlite3) >= 3.5
@@ -329,7 +329,6 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %defattr(-,root,root)
 %license COPYING
 %{_datadir}/GConf/gsettings/evolution-data-server.convert
-%{_datadir}/GConf/gsettings/libedataserver.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.Evolution.DefaultSources.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.evolution.eds-shell.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.evolution.shell.network-config.gschema.xml
