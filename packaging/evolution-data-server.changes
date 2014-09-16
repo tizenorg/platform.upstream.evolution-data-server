@@ -1,3 +1,6 @@
+* Tue Sep 16 2014 Patrick Ohly <patrick.ohly@intel.com> EVOLUTION_DATA_SERVER_3_12_2-32-g1042563
+- rebase to 3.12.2 + intel-work-3-12 patches
+
 * Fri May 24 2013 Philippe Coval <philippe.coval@eurogiciel.fr> submit/devel/20130513.104159@de9e443
 - Bump to 3.8.2
 
