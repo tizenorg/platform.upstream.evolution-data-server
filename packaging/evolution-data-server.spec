@@ -271,7 +271,7 @@ cp %{SOURCE1001} .
  --enable-weather=%{?enable_weather} \
  --enable-gtk=%{?enable_gtk} \
  --enable-google=%{?enable_gdata} \
-%if %{?with_introspection}
+%if %{with introspection}
  --enable-vala-bindings \
  --enable-introspection \
 %else
