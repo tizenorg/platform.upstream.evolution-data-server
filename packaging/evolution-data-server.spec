@@ -281,13 +281,13 @@ cp %{SOURCE1001} .
  --disable-examples \
  # end of configure line
 
-make %{?_smp_mflags} V=1
+%__make %{?_smp_mflags} V=1
 
 %install
 %make_install
 mkdir -p %{buildroot}/%{_datadir}/help
-%find_lang evolution-data-server-%{_evo_version}
-mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
+find %{buildroot} -name evolution-data-server-%{_evo_version}.mo -execdir mv {} evolution-data-server.mo \;
+%find_lang evolution-data-server
 %fdupes %{buildroot}
 
 %lang_package
