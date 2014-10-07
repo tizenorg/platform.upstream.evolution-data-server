@@ -1,7 +1,8 @@
+%bcond_with introspection
+
 %define baseline 3.11
 
 %define USE_EVOLDAP 0
-%define with_introspection 1
 %define enable_goa no
 %define enable_uoa no
 %define enable_gtk no
@@ -19,7 +20,6 @@
 %define so_ebackend 6
 %define _evo_version 3.11
 
-
 Name:           evolution-data-server
 Version:        3.11.93
 Release:        0
@@ -29,6 +29,7 @@ Group:          Development/Libraries
 Url:            http://www.gnome.org
 Source0:        http://download.gnome.org/sources/evolution-data-server/%{baseline}/%{name}-%{version}.tar.xz
 Source98:       baselibs.conf
+
 BuildRequires:  db4-devel
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
@@ -44,7 +45,9 @@ BuildRequires:  pkgconfig(gcr-base-3) >= 3.4
 %if %{?enable_goa} != no
 BuildRequires:  pkgconfig(goa-1.0) >= 3.2
 %endif
+%if %{with introspection}
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
+%endif
 %if %{?enable_gtk} != no
 BuildRequires:  pkgconfig(gtk+-3.0)
 %endif
@@ -120,7 +123,7 @@ and calendar in the GNOME Desktop.
 This package contains a shared system library to access address books.
 
 
-%if %{?with_introspection}
+%if %{with introspection}
 
 %package -n typelib-EBookContacts
 Summary:        Evolution Data Server - Address Book Backend Library, Introspection bindings
@@ -156,7 +159,7 @@ and calendar in the GNOME Desktop.
 This package contains a shared system library for address book backends.
 
 
-%if %{?with_introspection}
+%if %{with introspection}
 
 %package -n typelib-EBook
 Summary:        Evolution Data Server - Address Book Backend Library, Introspection bindings
@@ -193,7 +196,7 @@ and calendar in the GNOME Desktop.
 This package contains a shared system library.
 
 
-%if %{?with_introspection}
+%if %{with introspection}
 
 %package -n typelib-EDataServer
 Summary:        Evolution Data Server - Utilities Library, Introspection bindings
@@ -220,7 +223,7 @@ Requires:       libecal = %{version}
 Requires:       libedata-book = %{version}
 Requires:       libedata-cal = %{version}
 Requires:       libedataserver = %{version}
-%if %{?with_introspection}
+%if %{with introspection}
 Requires:       typelib-EBook = %{version}
 Requires:       typelib-EDataServer = %{version}
 %endif
@@ -254,34 +257,37 @@ This package contains developer documentation.
 # for packaging, so disable it.
 
 %autogen \
- --libexecdir=%{_libexecdir}/evolution-data-server \
- --disable-maintainer-mode \
- --enable-ipv6=%{?enable_ipv6} \
- --enable-smime=%{?enable_smime} \
- --enable-nntp=%{?enable_nntp} \
- --disable-static \
- --disable-uoa \
- --enable-goa=%{?enable_goa} \
- --enable-weather=%{?enable_weather} \
- --enable-gtk=%{?enable_gtk} \
- --enable-google=%{?enable_gdata} \
-%if %{?with_introspection}
- --enable-vala-bindings \
- --enable-introspection \
+          --libexecdir=%{_libexecdir}/evolution-data-server \
+          --disable-maintainer-mode \
+          --enable-ipv6=%{?enable_ipv6} \
+          --enable-smime=%{?enable_smime} \
+          --enable-nntp=%{?enable_nntp} \
+          --disable-static \
+          --disable-uoa \
+          --enable-goa=%{?enable_goa} \
+          --enable-weather=%{?enable_weather} \
+          --enable-gtk=%{?enable_gtk} \
+          --enable-google=%{?enable_gdata} \
+%if %{with introspection}
+          --enable-vala-bindings \
+          --enable-introspection \
 %else
- --disable-vala-bindings \
- --disable-introspection \
+          --disable-vala-bindings \
+          --disable-introspection \
 %endif
- --disable-examples \
- # end of configure line
+          --disable-examples
 
-make %{?_smp_mflags} V=1
+%__make %{?_smp_mflags} V=1
+
+
 
 %install
 %make_install
 mkdir -p %{buildroot}/%{_datadir}/help
 %find_lang evolution-data-server-%{_evo_version}
-mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
+if [ -f evolution-data-server-%{_evo_version}.lang ] ;then
+  mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
+fi
 %fdupes %{buildroot}
 
 %lang_package
@@ -358,7 +364,7 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %{_libdir}/libebook-1.2.so.%{so_ebook}*
 
 
-%if %{?with_introspection}
+%if %{with introspection}
 %files -n typelib-EBook
 %defattr(-, root, root)
 %{_libdir}/girepository-1.0/EBook-1.2.typelib
@@ -370,7 +376,7 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %{_libdir}/libebook-contacts-1.2.so.0*
 
 
-%if %{?with_introspection}
+%if %{with introspection}
 %files -n typelib-EBookContacts
 %defattr(-, root, root)
 %{_libdir}/girepository-1.0/EBookContacts-1.2.typelib
@@ -397,19 +403,18 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 %{_libdir}/libedataserver-1.2.so.%{so_edataserver}*
 
 
-%if %{?with_introspection}
+%if %{with introspection}
 %files -n typelib-EDataServer
 %defattr(-, root, root)
 %{_libdir}/girepository-1.0/EDataServer-1.2.typelib
 %endif
-
 
 %files devel
 %defattr(-, root, root)
 %{_includedir}/evolution-data-server/
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
-%if %{?with_introspection}
+%if %{with introspection}
 %{_datadir}/gir-1.0/*.gir
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
