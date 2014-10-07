@@ -260,34 +260,33 @@ cp %{SOURCE1001} .
 # for packaging, so disable it.
 
 %autogen \
- --libexecdir=%{_libexecdir}/evolution-data-server \
- --disable-maintainer-mode \
- --enable-ipv6=%{?enable_ipv6} \
- --enable-smime=%{?enable_smime} \
- --enable-nntp=%{?enable_nntp} \
- --disable-static \
- --disable-uoa \
- --enable-goa=%{?enable_goa} \
- --enable-weather=%{?enable_weather} \
- --enable-gtk=%{?enable_gtk} \
- --enable-google=%{?enable_gdata} \
-%if %{?with_introspection}
- --enable-vala-bindings \
- --enable-introspection \
+          --libexecdir=%{_libexecdir}/evolution-data-server \
+          --disable-maintainer-mode \
+          --enable-ipv6=%{?enable_ipv6} \
+          --enable-smime=%{?enable_smime} \
+          --enable-nntp=%{?enable_nntp} \
+          --disable-static \
+          --disable-uoa \
+          --enable-goa=%{?enable_goa} \
+          --enable-weather=%{?enable_weather} \
+          --enable-gtk=%{?enable_gtk} \
+          --enable-google=%{?enable_gdata} \
+%if %{with introspection}
+          --enable-vala-bindings \
+          --enable-introspection \
 %else
- --disable-vala-bindings \
- --disable-introspection \
+          --disable-vala-bindings \
+          --disable-introspection \
 %endif
- --disable-examples \
- # end of configure line
+          --disable-examples
 
-make %{?_smp_mflags} V=1
+%__make %{?_smp_mflags} V=1
 
 %install
 %make_install
 mkdir -p %{buildroot}/%{_datadir}/help
-%find_lang evolution-data-server-%{_evo_version}
-mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
+find %{buildroot} -name evolution-data-server-%{_evo_version}.mo -execdir mv {} evolution-data-server.mo \;
+%find_lang evolution-data-server
 %fdupes %{buildroot}
 
 %lang_package
