@@ -30,6 +30,8 @@ Group:          Development/Libraries
 Url:            http://www.gnome.org
 Source0:        http://download.gnome.org/sources/evolution-data-server/%{baseline}/%{name}-%{version}.tar.xz
 Source98:       baselibs.conf
+Source1001:     evolution-data-server.manifest
+
 BuildRequires:  db4-devel
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
@@ -250,6 +252,7 @@ This package contains developer documentation.
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 %build
 
@@ -330,6 +333,7 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 
 %files
 %defattr(-,root,root)
+%manifest %{name}.manifest
 %license COPYING
 %{_datadir}/GConf/gsettings/evolution-data-server.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.Evolution.DefaultSources.gschema.xml
@@ -347,67 +351,79 @@ mv evolution-data-server-%{_evo_version}.lang evolution-data-server.lang
 
 %files -n libcamel
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/libcamel-1.2.so.%{so_camel}*
 
 
 %files -n libebackend
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/libebackend-1.2.so.%{so_ebackend}*
 
 
 %files -n libebook
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/libebook-1.2.so.%{so_ebook}*
 
 
 %if %{with introspection}
 %files -n typelib-EBook
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/girepository-1.0/EBook-1.2.typelib
 %endif
 
 
 %files -n libebook-contacts
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/libebook-contacts-1.2.so.0*
 
 
 %if %{with introspection}
 %files -n typelib-EBookContacts
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/girepository-1.0/EBookContacts-1.2.typelib
 %endif
 
 
 %files -n libecal
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/libecal-1.2.so.%{so_ecal}*
 
 
 %files -n libedata-book
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/libedata-book-1.2.so.%{so_edata_book}*
 
 
 %files -n libedata-cal
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/libedata-cal-1.2.so.%{so_edata_cal}*
 
 
 %files -n libedataserver
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/libedataserver-1.2.so.%{so_edataserver}*
 
 
 %if %{with introspection}
 %files -n typelib-EDataServer
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_libdir}/girepository-1.0/EDataServer-1.2.typelib
 %endif
 
 
 %files devel
 %defattr(-, root, root)
+%manifest %{name}.manifest
 %{_includedir}/evolution-data-server/
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
